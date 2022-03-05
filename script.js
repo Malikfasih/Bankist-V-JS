@@ -50,44 +50,9 @@ btnScrollTo.addEventListener('click', function (e) {
     document.documentElement.clientHeight,
     document.documentElement.clientWidth
   );
-
-  // Scrolling
-
-  // old school of doing this
-
-  // window.scrollTo(s1coords.left, s1coords.top); // as this works only when the viewport is at begining,
-  // we need to get to the element where ever we click the button, so we will add
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffset,
-  //   s1coords.top + window.pageYOffset // current position + current scroll
-  // );
-  // by doing this we basically determine the absolute position of the element(section1)
-
-  // ohter smooth way of doing this scroll, by creating an object
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // }); // but this is not working in my chrome
-
-  // modern way of doing this
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 ///////////////////////////////////////////////
-
-// page navigation
-// document.querySelectorAll('.nav__link').forEach(function (el) {
-//   el.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute('href');
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// }); // this will unnessary way of doing as it cause bugs if there will be many events
-
-// other clean way // adding event delegation
-// 1). Add event listener to a common parent element
-// 2). Determine what element originated the event
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   e.preventDefault();
@@ -145,31 +110,6 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
 /////////////////////////////////////////////
-
-// Sticky navigation
-// const initialCoords = section1.getBoundingClientRect();
-// // console.log(initialCoords);
-// window.addEventListener('scroll', function () {
-//   // console.log(window.scrollY);
-//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// });
-
-// Sticky navigation : Intersection observer API
-// This callback fuction here will get called each time that the observed element i.e 'section1' is intersecting the root element at thershold that we defined
-// or in this current eg when ever our target here 'section1' intersects the viewport at 10%
-// const obsCallback = function (entries, observer) {
-//   entries.forEach(entry => {
-//     console.log(entry);
-//   });
-// };
-
-// const obsOptions = {
-//   root: null, // viewport
-//   threshold: [0, 0.2], // this is the % of intersection at which the observer callback will be called
-// };
-// const observer = new IntersectionObserver(obsCallback, obsOptions);
-// observer.observe(section1);
 
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
@@ -238,11 +178,6 @@ const slider = function () {
   const maxSlide = slides.length;
   const dotContainer = document.querySelector('.dots');
   let curSlide = 0;
-
-  // just practiced to make all slides visible
-  // const slider = document.querySelector('.slider');
-  // slider.style.transform = 'scale(0.3) translateX(-800px)';
-  // slider.style.overflow = 'visible';
 
   // Functions
   const createDots = function () {
@@ -317,155 +252,9 @@ const slider = function () {
 slider();
 //////////////////////////////////////////////
 /////////////////////////////////////////////
-// Selecting elements
-// console.log(document.documentElement);
-// console.log(document.head);
-// console.log(document.body);
-// const header = document.querySelector('.header');
 
-// const allSections = document.querySelectorAll('section');
-// console.log(allSections);
 
-// console.log(document.getElementById('section--1'));
 
-// const allButtons = document.getElementsByTagName('button');
-// console.log(allButtons);
-// console.log(document.getElementsByClassName('btn'));
-
-// Creating and inserting elements
-// const message = document.createElement('div'); //message is an object now
-// message.classList.add('cookie-message');
-// // message.textContent = 'We add cookies for improved functionality and analytics'// or
-// message.innerHTML =
-//   'We add cookies for improved functionality and analytics <button class = "btn btn--close--cookie">Got it</button>';
-
-// header.prepend(message)
-// header.append(message);
-// // header.append(message.cloneNode(true))// this will copy all the child elements
-
-// // header.before(message) // it will add message element before header as sibling of header instead of child
-// header.after(message); // it will add message element after
-
-// Deleting elements
-// document
-//   .querySelector('.btn--close--cookie')
-//   .addEventListener('click', function () {
-//     message.remove(); // recent method to delete
-//     // message.parentElement.removeChild(message); // old method of deleting
-//   });
-
-// Styles
-// message.style.backgroundColor = 'yellow';
-// // message.style.width = '120%';
-
-// console.log(message.style.backgroundColor);
-// console.log(getComputedStyle(message).backgroundColor);
-// console.log(getComputedStyle(message).height);
-
-// message.style.height =
-//   Number.parseFloat(getComputedStyle(message).height) + 20 + 'px';
-// // we parseFloat to get the value of height without 'px' and add to 20
-
-// document.documentElement.style.setProperty('--color-primary', 'orangered');
-
-// Attributes
-// const logo = document.querySelector('.nav__logo');
-// console.log(logo.alt);
-// logo.alt = 'Beautiful logo';
-
-// console.log(logo.src); // absolute version
-// console.log(logo.getAttribute('src')); // relative version
-
-// logo.setAttribute('company', 'banks'); // it will add new attribute to logo
-
-//Date Attribute
-// console.log(logo.dataset.versionNumber);// but its giving undefined
-
-// Classes ]
-// as already practiced these before
-// logo.classList.add('a','b')
-// logo.classList.remove('b')
-// logo.classList.toggle('c')
-// logo.classList.contains('a')
-
-// types of events
-
-// const h1 = document.querySelector('h1');
-// // h1.addEventListener('mouseenter', function (e) {
-// //   alert('addEventListener : You read !!');
-// // }); //or
-// const alertH1 = function (e) {
-//   alert('addEventListener : You read !!');
-//   // h1.removeEventListener('mouseenter', alertH1); // to remove addeventlistener and it will listen to event at once coz we added next to this
-// };
-// h1.addEventListener('mouseenter', alertH1);
-// // or we can remover event listener with other pattern like seeting Time out
-// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
-
-// old way of doing
-// h1.onmouseenter = function (e) {
-//   alert('mouseListener : You read now !!');
-// };
-
-//rgb(255,255,255)
-// const randomInt = (min, max) =>
-//   Math.floor(Math.random() * (max - min + 1) + min);
-// // console.log(randomInt);
-// const randomColor = () =>
-//   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
-
-// document.querySelector('.nav__link').addEventListener('click', function (e) {
-//   this.style.backgroundColor = randomColor();
-//   console.log('LINK', e.target, e.currentTarget); // e.target will show the target where we click
-//   console.log(e.currentTarget === this); // true
-// });
-
-//stop propogation
-// e.stopPropagation(); // it will not allow parent element to change there bg color
-
-// document.querySelector('.nav__links').addEventListener('click', function (e) {
-//   this.style.backgroundColor = randomColor();
-//   console.log('CONTAINER', e.target, e.currentTarget); // e.currentTarget is target that is attached to event listener
-// });
-// document.querySelector('.nav').addEventListener('click', function (e) {
-//   this.style.backgroundColor = randomColor();
-//   console.log('NAV', e.target, e.currentTarget);
-// });
-
-// DOM Traversing
-
-// keep in mind 'querySelector' finds element in a child elements and 'closest' find element in parent elements
-// const h1 = document.querySelector('h1');
-
-// Going downwards : Child
-// console.log(h1.querySelectorAll('.highlight'));
-// console.log(h1.childNodes);
-// console.log(h1.children);
-// console.log(h1.firstElementChild);
-// console.log(h1.lastElementChild);
-// h1.firstElementChild.style.color = 'white';
-// h1.lastElementChild.style.color = 'orangered';
-
-// Going upwards : parent
-// console.log(h1.parentNode);
-// console.log(h1.parentElement); // it will be same as parentNode of 'h1'
-// console.log(h1.closest('.header'));
-// h1.closest('.header').style.background = 'var(--gradient-secondary)';
-// h1.closest('h1').style.background = 'var(--gradient-primary)'; // this will be the same h1 itself
-
-// Going sideways : siblings
-// console.log(h1.previousElementSibling);
-// console.log(h1.nextElementSibling);
-
-// // not important ones
-// console.log(h1.previousSibling);
-// console.log(h1.nextSibling);
-
-// console.log(h1.parentElement.children); // this will give all children including 'h1'
-// // eg : practicing
-// [...h1.parentElement.children].forEach(function (el) {
-//   if (el !== h1) el.style.transform = 'scale(0.5)';
-// });
 
 // life cycle DOM events
 
@@ -476,8 +265,4 @@ window.addEventListener('load', function (e) {
   console.log('Page fully loaded', e);
 });
 
-// window.addEventListener('beforeunload', function (e) {
-//   e.preventDefault();
-//   console.log(e);
-//   e.returnValue = '';
-// });
+
